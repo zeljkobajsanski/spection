@@ -13,14 +13,14 @@ define(['plugins/http'], function (http) {
             },
             getFavorites: function (projId, userId) {
                 //return http.get(url + 'GetFavorites', { projectId: projId, userId: userId });
-                return http.get('/data/favorites.json')
+                return http.get('data/favorites.json')
             },
             getTasksForFavorite: function (id) {
                 return http.get(url + 'GetTasksForFavorite/' + id);
             },
             getPhases: function (projectId) {
                 //return http.get(url + 'GetPhases', { projectId: projectId });
-                return http.get('/data/kapitelstruktur.json')
+                return http.get('data/kapitelstruktur.json')
             },
             savePhase: function (data) {
                 return $.ajax({
