@@ -1,0 +1,165 @@
+<div id="navbar" class="navbar navbar-default navbar-collapse">
+    <div id="navbar-container" class="navbar-container">
+
+        <!-- toggle buttons are here or inside brand container -->
+        <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+            <span class="sr-only">Toggle sidebar</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-header pull-right">
+            <a href="#" class="navbar-brand">
+                <small><i class="ace-icon fa fa-cog"></i> Spection</small>
+            </a> 
+        </div>
+        <!-- /.navbar-header -->
+
+
+        <div class="navbar-buttons navbar-header pull-right ">
+            <ul class="nav ace-nav">
+                <!-- user buttons such as messages, notifications and user menu -->
+            </ul>
+        </div>
+        <!-- /.navbar-buttons -->
+
+
+        <nav class="navbar-menu pull-left">
+            <!-- optional menu & form inside navbar -->
+        </nav>
+        <!-- /.navbar-menu -->
+
+    </div>
+    <!-- /.navbar-container -->
+</div>
+<!-- /.navbar -->
+<div class="main-container" id="main-container">
+    <div class="sidebar responsive" id="sidebar">
+        <!-- responsive-min (ubaci ovu klasu i dole otkomentariši sidebar expand) -->
+        <!-- sidebar goes here -->
+        <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+           <!-- <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+                    <button class="btn btn-success"><i class="ace-icon fa fa-signal"></i></button>
+                    <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i></button>
+                    <button class="btn btn-warning"><i class="ace-icon fa fa-users"></i></button>
+                    <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i></button>
+                </div>
+
+                <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                    <span class="btn btn-success"></span>
+                    <span class="btn btn-info"></span>
+                    <span class="btn btn-warning"></span>
+                    <span class="btn btn-danger"></span>
+                </div>-->
+        </div>
+        <ul class="nav nav-list">
+            <li>
+                <a href="#">
+                    <i class="menu-icon fa fa-briefcase"></i>
+                    <span class="menu-text">Projekte</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="menu-icon fa fa-male"></i>
+                    <span class="menu-text">Use Cases</span>
+                </a>
+            </li>
+             <li>
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-list"></i>
+                    <span class="menu-text">Anforderung</span>
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+                 <b class="arrow"></b>
+                 <ul class="submenu">
+                    <li>
+                        <a href="#">
+                            <i class="menu-icon fa fa-briefcase"></i>
+                            <span class=menu-text>Projekt</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="menu-icon fa fa-search"></i>
+                            <span class=menu-text>Meine filter</span>
+                        </a>
+                    </li>
+                     <li>
+                        <a href="#">
+                            <i class="menu-icon fa fa-star"></i>
+                            <span class=menu-text>Favoriten</span>
+                        </a>
+                    </li>
+                     <li>
+                        <a href="#">
+                            <i class="menu-icon fa fa-list"></i>
+                            <span class=menu-text>Kapitelstruktur</span>
+                        </a>
+                    </li>
+                 </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="menu-icon fa fa-flask"></i>
+                    <span class="menu-text">Review</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="menu-icon fa fa-legal"></i>
+                    <span class="menu-text">Umsetzung</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="menu-icon fa fa-headphones"></i>
+                    <span class="menu-text">Produktfeedback</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+            <i class="ace-icon fa fa-angle-double-right" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+        </div>
+        <!--<div id="sidebar-expand" class="sidebar-toggle sidebar-expand">
+                <i class="ace-icon fa fa-angle-double-right" data-icon1="ace-icon fa fa-angle-double-right" data-icon2="ace-icon fa fa-angle-double-left"></i>
+            </div>-->
+    </div>
+
+    <div class="main-content">
+        <div class="breadcrumbs" id="breadcrumbs">
+            <!-- breadcrumbs goes here -->
+            <!-- search box -->
+            <!--<div id="nav-search" class="nav-search">
+                <form class="form-search">
+                    <span class="input-icon">
+                        <input type="text" class="nav-search-input" id="nav-search-input" autocomplete="off" placeholder="Search ..." />
+                        <i class="ace-icon fa fa-search nav-search-icon"></i>
+                    </span>
+                </form>
+            </div>-->
+        </div>
+
+        <div class="page-content">
+            <div class="ace-settings-container" id="ace-settings-container">
+                <!-- setting box goes here if needed -->
+            </div>
+            <div data-bind="router: { transition: 'entrance' }"></div>
+        </div>
+        <!-- /.page-content -->
+    </div>
+    <!-- /.main-content -->
+
+    <a class="btn-scroll-up" id="btn-scroll-up"></a>
+
+    <!-- footer area -->
+    <!--<div class="footer">
+            <div class="footer-inner">
+                <div class="footer-content">
+                    Ovde ide content
+                </div>
+            </div>
+        </div>-->
+
+</div>
+<!-- /.main-container -->
