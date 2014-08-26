@@ -1,7 +1,7 @@
 define(['plugins/http'], function (http) {
     "use strict";
-    //var url = 'http://localhost:49754/MobileData/',
-    var url = 'http://spection.brizb.rs/MobileData/',
+    var url = 'http://localhost:49754/MobileData/',
+    //var url = 'http://spection.brizb.rs/MobileData/',
         module = {
             getProject: function (projectId) {
                 return http.get(url + 'GetProject/' + projectId);

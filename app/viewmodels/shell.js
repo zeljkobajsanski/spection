@@ -1,4 +1,4 @@
-define(['plugins/router', 'services/data', 'services/messages'], function(router, data, msg) {
+define(['plugins/router', 'services/data', 'services/messages', 'durandal/system'], function(router, data, msg, sys) {
 
     var favorites       = ko.observableArray([]),
         myFilter        = ko.observableArray([]),
@@ -24,12 +24,16 @@ define(['plugins/router', 'services/data', 'services/messages'], function(router
                 { route: 'umsetzung', title: 'Umsetzung', moduleId: 'viewmodels/umsetzung' },
                 { route: 'feedback', title: 'Produktfeedback', moduleId: 'viewmodels/feedback' },
                 { route: 'favorite/:id', title: 'Favorite', moduleId: 'viewmodels/favorite' },
+                { route: 'caption/:id', title: 'Kapitel', moduleId: 'viewmodels/caption' },
             ]).buildNavigationModel();
 
             return router.activate();
         },
         gotoFavorite: function(favorite) {
             router.navigate('#favorite/' + favorite.Id);
+        },
+        gotoCaption: function(caption) {
+            router.navigate("#caption/" + caption.Id);
         }
     };
     
