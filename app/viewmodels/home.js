@@ -1,4 +1,7 @@
-﻿define([], function() {
-    var viewModel = {};
-    return viewModel;
+define([], function() {
+    
+    var vm = {
+    };
+    
+    return vm;
 })
