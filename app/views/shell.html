@@ -86,16 +86,29 @@
                         </a>
                     </li>
                      <li>
-                        <a href="#">
+                        <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-star"></i>
                             <span class=menu-text>Favoriten</span>
+                            <b class="arrow fa fa-angle-down"></b>
                         </a>
+                         <b class="arrow"></b>
+                         <ul class="submenu" data-bind="foreach: favorites">
+                            <li>
+                                <a href="#">
+                                    <span class="menu-text" data-bind="text: title"></span>
+                                    <span class="badge badge-warning" data-bind="text: count"></span>
+                                </a>
+                            </li>
+                         </ul>
                     </li>
                      <li>
-                        <a href="#">
+                        <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-list"></i>
                             <span class=menu-text>Kapitelstruktur</span>
+                            <b class="arrow fa fa-angle-down"></b>
                         </a>
+                        <b class="arrow"></b>
+                        <ul class="submenu" data-bind="template: {foreach: kapitelStruktur, name: 'kapitel-template'}"></ul>
                     </li>
                  </ul>
             </li>
@@ -163,3 +176,22 @@
 
 </div>
 <!-- /.main-container -->
+
+<script type="text/html" id="kapitel-template">
+    <li>
+        <a href="#" class="dropdown-toggle">
+            <span class="menu-text" data-bind="text: Title"></span>
+            <span class="badge badge-warning" data-bind="visible: Count>0, text: Count"></span>
+            <b class="arrow fa fa-angle-down" data-bind="visible: SubCaptions.length>0"></b>
+        </a>
+        <b class="arrow" data-bind="if: SubCaptions.length>0"></b>
+        <ul class="submenu" data-bind="template: {name: 'kapitel-template', foreach: SubCaptions}">
+            <li>
+                <a href="#">
+                    <span class="menu-text" data-bind="text: Title"></span>
+                    <span class="badge badge-warning" data-bind="visible: Count>0, text: Count"></span>
+                </a>
+            </li>
+        </ul>
+    </li>
+</script>
