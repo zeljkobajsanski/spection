@@ -1,4 +1,4 @@
-﻿requirejs.config({
+requirejs.config({
     paths: {
         'text': '../js/text',
         'durandal': '../js/durandal',
@@ -19,7 +19,7 @@ define(function (require) {
 
     system.debug(true);
 
-    app.title = 'Application Title';
+    app.title = 'Spection';
 
     app.configurePlugins({
         router: true,

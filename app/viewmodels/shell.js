@@ -8,19 +8,18 @@ define(['plugins/router', 'services/data', 'services/messages'], function(router
         favorites: favorites,
         kapitelStruktur: kapitelStruktur,
         activate: function() {
-            msg.showInfo("Willkommen zu Spection")
-            data.getFavorites().done(function(fav) {
+            data.getFavorites(1,1).done(function(fav) {
                 favorites(fav);
-            }).fail(function() {});
+            }).fail(function() {msg.showError("Favorites loading failed");});
             data.getPhases(1).done(function(kapitel){
                 kapitelStruktur(kapitel);
             }).fail(function(){
-                msg.showError("Error");
+                msg.showError("Kapitelstruktur loading failed");
             });
             router.map([
                 { route: '', title: 'Home', moduleId: 'viewmodels/home' },
                 { route: 'projekte', title: 'Projekte', moduleId: 'viewmodels/projekte' },
-                //{ route: 'useCases', title: 'Use Cases', moduleId: 'viewmodels/useCases' },
+                { route: 'usecase', title: 'Use Cases', moduleId: 'viewmodels/usecases' },
                 { route: 'review', title: 'Review', moduleId: 'viewmodels/review' },
                 { route: 'umsetzung', title: 'Umsetzung', moduleId: 'viewmodels/umsetzung' },
                 { route: 'feedback', title: 'Produktfeedback', moduleId: 'viewmodels/feedback' },

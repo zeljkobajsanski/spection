@@ -52,7 +52,7 @@
 </div>
 <!-- /.navbar -->
 <div class="main-container" id="main-container">
-    <div class="sidebar responsive" id="sidebar">
+    <div class="sidebar responsive responsive-min" id="sidebar">
         <!-- responsive-min (ubaci ovu klasu i dole otkomentariši sidebar expand) -->
         <!-- sidebar goes here -->
         <div class="sidebar-shortcuts" id="sidebar-shortcuts">
@@ -78,7 +78,7 @@
                 </a>
             </li>
             <li>
-                <a href="#useCases">
+                <a href="#usecase">
                     <i class="menu-icon fa fa-male"></i>
                     <span class="menu-text">Use Cases</span>
                 </a>
@@ -113,8 +113,8 @@
                          <ul class="submenu" data-bind="foreach: favorites">
                             <li>
                                 <a href="#">
-                                    <span class="menu-text" data-bind="text: title"></span>
-                                    <span class="badge badge-warning" data-bind="text: count"></span>
+                                    <span class="menu-text" data-bind="text: Label"></span>
+                                    <span class="badge badge-warning" data-bind="text: Count"></span>
                                 </a>
                             </li>
                          </ul>
@@ -152,13 +152,13 @@
         <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
             <i class="ace-icon fa fa-angle-double-right" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
         </div>
-        <!--<div id="sidebar-expand" class="sidebar-toggle sidebar-expand">
+        <div id="sidebar-expand" class="sidebar-toggle sidebar-expand">
                 <i class="ace-icon fa fa-angle-double-right" data-icon1="ace-icon fa fa-angle-double-right" data-icon2="ace-icon fa fa-angle-double-left"></i>
-            </div>-->
+            </div>
     </div>
 
     <div class="main-content">
-        <div class="breadcrumbs" id="breadcrumbs">
+        <!--<div class="breadcrumbs" id="breadcrumbs"> -->
             <!-- breadcrumbs goes here -->
             <!-- search box -->
             <!--<div id="nav-search" class="nav-search">
@@ -169,7 +169,7 @@
                     </span>
                 </form>
             </div>-->
-        </div>
+        <!--</div>-->
 
         <div class="page-content">
             <div class="ace-settings-container" id="ace-settings-container">

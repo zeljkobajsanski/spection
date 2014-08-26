@@ -1,8 +1,4 @@
 define(['durandal/system'], function(system) {
-    var viewModel = {
-        activate: function() {
-            system.log('Umsetzung');
-        }
-    };
+    var viewModel = {};
     return viewModel;
 })

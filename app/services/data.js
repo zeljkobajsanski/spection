@@ -1,6 +1,7 @@
 define(['plugins/http'], function (http) {
     "use strict";
-    var url = 'http://localhost:49754/Data/',
+    //var url = 'http://localhost:49754/MobileData/',
+    var url = 'http://spection.brizb.rs/MobileData/',
         module = {
             getProject: function (projectId) {
                 return http.get(url + 'GetProject/' + projectId);
@@ -12,15 +13,13 @@ define(['plugins/http'], function (http) {
                 return http.post(url + 'SaveFavorite', favorite);
             },
             getFavorites: function (projId, userId) {
-                //return http.get(url + 'GetFavorites', { projectId: projId, userId: userId });
-                return http.get('data/favorites.json')
+                return http.get(url + 'GetFavorites', { projectId: projId, userId: userId });
             },
             getTasksForFavorite: function (id) {
                 return http.get(url + 'GetTasksForFavorite/' + id);
             },
             getPhases: function (projectId) {
-                //return http.get(url + 'GetPhases', { projectId: projectId });
-                return http.get('data/kapitelstruktur.json')
+                return http.get(url + 'GetCaptions', { projectId: projectId });
             },
             savePhase: function (data) {
                 return $.ajax({
