@@ -110,13 +110,8 @@
                             <b class="arrow fa fa-angle-down"></b>
                         </a>
                          <b class="arrow"></b>
-                         <ul class="submenu" data-bind="foreach: favorites">
-                            <li>
-                                <a href="#">
-                                    <span class="menu-text" data-bind="text: Label"></span>
-                                    <span class="badge badge-warning" data-bind="text: Count"></span>
-                                </a>
-                            </li>
+                         <ul class="submenu" data-bind="template: {name: 'favorites-template', foreach: favorites}">
+                            
                          </ul>
                     </li>
                      <li>
@@ -126,7 +121,7 @@
                             <b class="arrow fa fa-angle-down"></b>
                         </a>
                         <b class="arrow"></b>
-                        <ul class="submenu" data-bind="template: {foreach: kapitelStruktur, name: 'kapitel-template'}"></ul>
+                        <ul class="submenu" data-bind="template: {name: 'kapitel-template', foreach: kapitelStruktur}"></ul>
                     </li>
                  </ul>
             </li>
@@ -198,6 +193,17 @@
 </div>
 <!-- /.main-container -->
 
+<!-- Templates -->
+
+<script type="text/html" id="favorites-template">
+    <li>
+        <a href="#" data-bind="click: $parent.gotoFavorite">
+            <span class="menu-text" data-bind="text: Label"></span>
+            <span class="badge badge-warning" data-bind="text: Count"></span>
+        </a>
+    </li>
+</script>
+
 <script type="text/html" id="kapitel-template">
     <li>
         <a href="#" class="dropdown-toggle">
@@ -216,3 +222,5 @@
         </ul>
     </li>
 </script>
+
+<!-- /. Templates -->

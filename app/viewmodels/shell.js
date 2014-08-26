@@ -23,10 +23,14 @@ define(['plugins/router', 'services/data', 'services/messages'], function(router
                 { route: 'review', title: 'Review', moduleId: 'viewmodels/review' },
                 { route: 'umsetzung', title: 'Umsetzung', moduleId: 'viewmodels/umsetzung' },
                 { route: 'feedback', title: 'Produktfeedback', moduleId: 'viewmodels/feedback' },
+                { route: 'favorite/:id', title: 'Favorite', moduleId: 'viewmodels/favorite' },
             ]).buildNavigationModel();
 
             return router.activate();
         },
+        gotoFavorite: function(favorite) {
+            router.navigate('#favorite/' + favorite.Id);
+        }
     };
     
     
