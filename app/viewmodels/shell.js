@@ -1,4 +1,4 @@
-define(['plugins/router', 'services/data'], function(router, data) {
+define(['plugins/router', 'services/data', 'services/messages'], function(router, data, msg) {
 
     var favorites       = ko.observableArray([]),
         myFilter        = ko.observableArray([]),
@@ -8,12 +8,15 @@ define(['plugins/router', 'services/data'], function(router, data) {
         favorites: favorites,
         kapitelStruktur: kapitelStruktur,
         activate: function() {
+            msg.showInfo("Willkommen zu Spection")
             data.getFavorites().done(function(fav) {
                 favorites(fav);
             }).fail(function() {});
             data.getPhases(1).done(function(kapitel){
                 kapitelStruktur(kapitel);
-            }).fail(function(){});
+            }).fail(function(){
+                msg.showError("Error");
+            });
             router.map([
                 { route: '', title: 'Home', moduleId: 'viewmodels/home' },
                 { route: 'projekte', title: 'Projekte', moduleId: 'viewmodels/projekte' },
