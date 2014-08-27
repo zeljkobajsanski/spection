@@ -111,7 +111,9 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
                 task.AuthorID(USER);
                 task.ProjectID(PROJECT);
             }
-            data.saveTask(ko.mapping.toJS(task)).done(function(id) {
+            var forSave = ko.mapping.toJS(task);
+            forSave.Picture = undefined;
+            data.saveTask(forSave).done(function(id) {
                 task.ID(id);
                 var fd = new FormData();
                 fd.append('taskId', id);
