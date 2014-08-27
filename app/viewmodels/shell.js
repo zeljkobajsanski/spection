@@ -47,9 +47,6 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
                 $(this).contextmenu('show', tapEvt);
                 return false;
             });*/
-            $("#favorites").contextmenu({
-                before: function() {alert();}
-            });
         }
     };
     
