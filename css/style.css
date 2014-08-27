@@ -1,5 +1,6 @@
 html {
-    -webkit-user-select: auto;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
 }
 .menu-text {
     width: 100px;
