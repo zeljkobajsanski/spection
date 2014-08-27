@@ -1,0 +1,41 @@
+<div class="modal fade" id="phase-dialog" style="position: absolute; top: 50%;left: 50%;">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Kapitel bearbeiten</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                   <form class="form-horizontal" role="form" data-bind="submit: save" id="edit-form" class="col-xs-12">
+                            <div class="form-group" data-bind="css: { 'has-error': !phase.Title.isValid() }">
+                                <label class="col-xs-3 control-label" for="id" data-bind="text: phase.Order"></label>
+                                <div class="col-xs-9">
+                                    <input type="text" class="form-control" placeholder="Name" id="id" name="Name" data-bind="value: phase.Title, valueUpdate: 'input'" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="SuperPhaseID">Kapitelstruktur</label>
+                                <div class="col-xs-9">
+                                    <select class="form-control" id="SuperPhaseID" data-bind="options: phases, value: phase.SuperPhase, optionsText: 'Title', optionsCaption: 'Select kapitel'"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label" for="Description">Kapiteltext</label>
+                                <div class="col-xs-9">
+                                    <textarea class="form-control" id="Description" name="Description" data-bind="value: phase.Description" />
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+                <button type="button" class="btn btn-primary" data-bind="click: save">Speichern</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

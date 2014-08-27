@@ -1,0 +1,24 @@
+<div class="modal fade" style="position: absolute; top: 50%;left: 50%;" id="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Favoriten-Ordner erstellen</h4>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal" role="form" data-bind="submit: save">
+              <div class="form-group" data-bind="css: {'has-error': !favorite.isValid()}">
+                  <label class="col-sm-3 control-label" for="favoriteField">Ordnerbezeichnung</label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" id="favoriteField" data-bind="value: favorite, valueUpdate: 'input'" />
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+        <button type="button" class="btn btn-primary" data-bind="click: save">Speichern</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

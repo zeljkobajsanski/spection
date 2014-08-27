@@ -168,7 +168,7 @@
                                     </div>
                                     <div class="widget-body">
                                         <div class="widget-main">
-                                            <img src="../../../images/gallery/image-1.jpg" id="bild" style="width: 100%; min-height: 335px;"/>
+                                            <img data-bind="attr: {src: task.Picture}" id="bild" class="img-responsive" style="max-height: 350px;"/>
                                         </div>
                                         <div class="widget-toolbox clearfix">
 
@@ -188,13 +188,32 @@
                                     </div>
                                     <div class="widget-body">
                                         <div class="widget-main">
-                                            <table class="table table-bordered"
-                                                <thead>
-                                                    <tr><th>Dateiname</th><th style="width: 50px">Size</th><th style="width: 50px"></th></tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                            </table>
-                                            <input type="file" name="myfile" id="my-file-input" />
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr><th>Dateiname</th><th>Size</th><th></th></tr>
+                                                    </thead>
+                                                    <tbody data-bind="foreach: task.Files">
+                                                        <tr>
+                                                            <td data-bind="text: FileName"></td>
+                                                            <td data-bind="text: Size"></td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button data-toggle="dropdown" class="btn btn-white btn-primary dropdown-toggle btn-minier">
+                                                                        <i class="ace-icon fa fa-cog"></i>
+                                                                        <i class="ace-icon fa fa-angle-down"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu">
+                                                                        <li><a href="javascript: void(0);" data-bind="click: $root.downloadFile">Download</a></li>
+                                                                        <li><a href="javascript: void(0);" data-bind="click: $root.deleteFile">Entfernen</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <input type="file" name="myfiles[]" id="my-file-input" multiple/>
                                             <div class="clearfix"></div>
                                         </div>
                                         <div class="widget-toolbox clearfix">
@@ -203,22 +222,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--<script id="dateiRowTemplate" type="text/html">
-                                <td data-bind="text: Name"></td>
-                                <td data-bind="text: Size"></td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button data-toggle="dropdown" class="btn btn-white btn-primary dropdown-toggle btn-minier">
-                                            <i class="ace-icon fa fa-cog"></i>
-                                            <i class="ace-icon fa fa-angle-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="javascript: void(0);">Download</a></li>
-                                            <li><a href="javascript: void(0);">Entfernen</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </script>-->
                         </div>
                     </div>
                     <div class="tab-pane in" id="tab4">

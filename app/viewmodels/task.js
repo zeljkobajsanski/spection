@@ -22,7 +22,9 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
         Source: '',
         Use: '',
         TestCriteria: '',
+        Picture: '',
         //Documents: [{ ID: 0, Name: 'test.pdf', Size: 100 }],
+        Files: [],
         Comments: [],
         Shortcuts: [],
         History: []
@@ -79,6 +81,8 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
                 Source: '',
                 Use: '',
                 TestCriteria: '',
+                Files: [],
+                Picture: '',
                 //Documents: [{ ID: 0, Name: 'test.pdf', Size: 100 }],
                 Comments: [],
                 Shortcuts: [],
@@ -109,10 +113,59 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
             }
             data.saveTask(ko.mapping.toJS(task)).done(function(id) {
                 task.ID(id);
+                var fd = new FormData();
+                fd.append('taskId', id);
+                var fileInput = $("#my-file-input");
+                var files = fileInput.data('ace_input_files');
+                if (files && files.length > 0) {
+                    for(var i = 0; i < files.length; i++) {
+                        fd.append('files', files[i]);
+                    }
+                    data.saveFiles(fd).done(function() {
+                        for(var i = 0; i < files.length; i++) {
+                            var f = {FileName: files[i].name, Size: files[i].size};
+                            task.Files.push(f);
+                        }
+                        fileInput.ace_file_input("reset_input");
+                    }).fail(function(){
+                        msg.showError("File not saved");
+                    });
+                }
+                fd = new FormData();
+                var pictureInput = $("input[name=bild]");
+                var picture = pictureInput.data('ace_input_files');
+                if (picture && picture.length == 1) {
+                    fd.append('taskId', id);
+                    fd.append('picture', picture[0]);
+                    pictureInput.ace_file_input('loading' , true);
+                    data.savePicture(fd).done(function(result) {
+/*                        $("#bild").get(0).src = result;
+                        $("#bild").show().next().hide();*/
+                    }).fail(function(){
+                        msg.showError("Picture not saved");})
+                    .always(function(){
+                        pictureInput.ace_file_input('loading' , false);
+                    });
+                }
                 msg.showInfo('Anforderung saved');
+                app.trigger('refresh:kapitel');
             })
-            .fail(function () { msg.showError("Fehler"); })
-            .always(function () { app.trigger('busy', false); });
+            .fail(function ()      
+                 { msg.showError("Fehler"); 
+             }).always(function () { app.trigger('busy', false); });
+        },
+        downloadFile: function(file) {
+            data.downloadFile(file.ID());
+        },
+        deleteFile: function(file) {
+            data.deleteFile(file.ID()).done(function(){
+                task.Files().forEach(function(item, ix){
+                    if (item.ID() == file.ID()) {
+                        task.Files.splice(ix, 1);
+                    }
+                })
+                msg.showWarning("File deleted");
+            }).fail(function(){msg.showError("Delete failed")});
         },
         activate: function(task) {
             taskId = task;
@@ -132,17 +185,16 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
                     type: 'image',
                     name: 'bild',
                     mode: 'inline',
-                    showbuttons: true,
-                    value: null,
+                    showbuttons: false,
                     image: {
                         name: 'bild',//name should be here as well
 
                         //custom file input options
-                        //btn_choose: 'Change Avatar',
+                        btn_choose: 'Select Picture',
                         droppable: true,
-                        maxSize: 1100000,//~1000kb
+                        maxSize: 3145728,   //~3 Mb
 
-                        //inline editable callback option
+                        /*//inline editable callback option
                         on_error: function (error_type) {
                             //invalid file selected, for example display an error message
                             if (error_type == 1) {
@@ -156,11 +208,7 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
                         },
                         on_success: function () {
                             $("#bild").show();
-                        }
-                    },
-                    url: function (params) {
-                        //actual file upload happens here
-                        //see "examples/profile-avatar-update.js"
+                        }*/
                     }
                 });
             });

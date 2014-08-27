@@ -1,4 +1,4 @@
-define(['plugins/router', 'services/data', 'services/messages', 'durandal/system'], function(router, data, msg, sys) {
+define(['plugins/router', 'services/data', 'services/messages', 'durandal/system', 'durandal/app'], function(router, data, msg, sys, app) {
 
     var favorites       = ko.observableArray([]),
         myFilter        = ko.observableArray([]),
@@ -8,14 +8,8 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
         favorites: favorites,
         kapitelStruktur: kapitelStruktur,
         activate: function() {
-            data.getFavorites(1,1).done(function(fav) {
-                favorites(fav);
-            }).fail(function() {msg.showError("Favorites loading failed");});
-            data.getPhases(1).done(function(kapitel){
-                kapitelStruktur(kapitel);
-            }).fail(function(){
-                msg.showError("Kapitelstruktur loading failed");
-            });
+            loadFavorites();
+            loadKapitel();
             router.map([
                 { route: '', title: 'Home', moduleId: 'viewmodels/home' },
                 { route: 'projekte', title: 'Projekte', moduleId: 'viewmodels/projekte' },
@@ -39,10 +33,44 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
         createNewTask: function() {
             router.navigate("#task");
         },
-        bindingComplete: function() {
-            
+        newFavorites: function() {
+            app.showDialog('viewmodels/dialogs/favorite').then(function(result) {
+                if (result.saved) {
+                    loadFavorites();
+                };
+            })
         },
         attached: function() {
+            $(".nav-list").contextmenu({
+                scopes: '.favorites', 
+                target: '#favoritesContexMenu1',
+                onItem: function(ctx, e) {
+                    var id = $(ctx).data('id');
+                    var target = $(e.target).data('action');
+                    if (target === 'edit') {
+                        app.showDialog('viewmodels/dialogs/favorite', id).then(function(result) {
+                            if (result.saved) {
+                                loadFavorites();
+                            }
+                        });
+                    } else if (target === 'delete') {
+                        data.deleteFavorite(id).done(function(){
+                            loadFavorites();
+                        });
+                    }
+                }
+            });
+            $("#kapitelStruktur").contextmenu({
+                scopes: '.kapitel', 
+                target: '#kapitelContexMenu',
+                onItem: function(ctx, e) {
+                    var id = $(ctx).data('id');
+                    app.showDialog('viewmodels/dialogs/kapitel', id).then(function(result){
+                        if (result.saved) { loadKapitel(); }
+                    });
+                }
+            });
+            app.on('refresh:kapitel', loadKapitel);
             /*$("#favorites").on('taphold', {duration: 500}, function (tapEvt) {
                 $(this).contextmenu('show', tapEvt);
                 return false;
@@ -50,5 +78,17 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
         }
     };
     
-    
+    function loadFavorites() {
+        data.getFavorites(1,1).done(function(fav) {
+            favorites(fav);
+        }).fail(function() {msg.showError("Favorites loading failed");});
+    }
+                
+    function loadKapitel(){
+        data.getPhases(1).done(function(kapitel){
+        kapitelStruktur(kapitel);
+        }).fail(function(){
+            msg.showError("Kapitelstruktur loading failed");
+        });
+    }
 })

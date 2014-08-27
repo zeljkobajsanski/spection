@@ -1,7 +1,7 @@
 define(['plugins/http'], function (http) {
     "use strict";
-    //var url = 'http://localhost:49754/MobileData/',
-    var url = 'http://spection.brizb.rs/MobileData/',
+    var url = 'http://localhost:49754/MobileData/',
+    //var url = 'http://spection.brizb.rs/MobileData/',
         module = {
             getProject: function (projectId) {
                 return http.get(url + 'GetProject/' + projectId);
@@ -10,13 +10,22 @@ define(['plugins/http'], function (http) {
                 return http.get(url + 'FilterTasks/' + filterId);
             },
             saveFavorite: function (favorite) {
-                return http.post(url + 'SaveFavorite', favorite);
+                return $.ajax({
+                    url: url + 'SaveFavorite',
+                    type: 'POST',
+                    crossDomain: true,
+                    dataType: 'json',//server response type
+                    data: favorite
+                });
             },
             getFavorites: function (projId, userId) {
                 return http.get(url + 'GetFavorites', { projectId: projId, userId: userId });
             },
             getTasksForFavorite: function (id) {
                 return http.get(url + 'GetTasksForFavorite/' + id);
+            },
+            getFavorite: function(id) {
+                return http.get(url + 'GetFavorite/' + id);
             },
             getPhases: function (projectId) {
                 return http.get(url + 'GetCaptions', { projectId: projectId });
@@ -40,7 +49,8 @@ define(['plugins/http'], function (http) {
             deleteFavorite: function (id) {
                 return $.ajax({
                     url: url + 'DeleteFavorite/' + id,
-                    type: 'DELETE'
+                    crossDomain: true,
+                    type: 'POST'
                 });
             },
             getPriorities: function () {
@@ -85,6 +95,37 @@ define(['plugins/http'], function (http) {
             },
             getNumerOfTasksForPhase: function (id) {
                 return http.get(url + 'GetNumerOfTasksForPhase/' + id);
+            },
+            saveFiles: function(data) {
+                return $.ajax({
+                        url: url + 'SaveFiles',
+                        processData: false,//important
+                        contentType: false,//important
+                        type: 'POST',
+                        //dataType: 'json',//depending on your server side response
+                        data: data//our FormData object
+                    })
+            },
+            downloadFile: function(id) {
+                window.open(url + 'DownloadFile/' + id, 'Preview');   
+            },
+            deleteFile: function (id) {
+                return $.ajax({
+                    url: url + "DeleteFile",
+                    type: 'POST',
+                    crossDomain: true,
+                    data: {id: id}
+                });
+            },
+            savePicture: function(data) {
+                return $.ajax({
+                        url: url + 'SavePicture',
+                        processData: false,//important
+                        contentType: false,//important
+                        type: 'POST',
+                        //dataType: 'json',//depending on your server side response
+                        data: data//our FormData object
+                    });
             }
         };
     return module;
