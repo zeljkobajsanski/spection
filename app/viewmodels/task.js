@@ -61,6 +61,52 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
         save: function() {},
         activate: function(taskId) {
             loadData();
+        },
+        attached: function() {
+               $('#tabs a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                try {
+                    document.createElement('IMG').appendChild(document.createElement('B'));
+                } catch (e) {
+                    Image.prototype.appendChild = function (el) {
+                    };
+                }
+                $('#my-file-input').ace_file_input({});
+                $('#bild').editable({
+                    type: 'image',
+                    name: 'bild',
+                    mode: 'inline',
+                    showbuttons: true,
+                    value: null,
+                    image: {
+                        name: 'bild',//name should be here as well
+
+                        //custom file input options
+                        //btn_choose: 'Change Avatar',
+                        droppable: true,
+                        maxSize: 1100000,//~1000kb
+
+                        //inline editable callback option
+                        on_error: function (error_type) {
+                            //invalid file selected, for example display an error message
+                            if (error_type == 1) {
+                                //file format error
+                            } else if (error_type == 2) {
+                                //file size rror
+                            }
+                            else {
+                                //other error
+                            }
+                        },
+                        on_success: function () {
+                            $("#bild").show();
+                        }
+                    },
+                    url: function (params) {
+                        //actual file upload happens here
+                        //see "examples/profile-avatar-update.js"
+                    }
+                });
+            });
         }
     };
     return viewModel;
