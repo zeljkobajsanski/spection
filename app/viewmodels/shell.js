@@ -25,6 +25,7 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
                 { route: 'feedback', title: 'Produktfeedback', moduleId: 'viewmodels/feedback' },
                 { route: 'favorite/:id', title: 'Favorite', moduleId: 'viewmodels/favorite' },
                 { route: 'caption/:id', title: 'Kapitel', moduleId: 'viewmodels/caption' },
+                { route: 'task/:id', title: 'Task', moduleId: 'viewmodels/task' },
             ]).buildNavigationModel();
 
             return router.activate();

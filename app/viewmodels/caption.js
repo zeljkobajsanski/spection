@@ -1,4 +1,4 @@
-define(['durandal/system', 'services/data', 'services/messages'], function(system, data, msg) {
+define(['durandal/system', 'services/data', 'services/messages', 'plugins/router'], function(system, data, msg, router) {
     var kapitel     = ko.observable(''),
         description = ko.observable(''),
         tasks       = ko.observableArray([]);
@@ -14,6 +14,9 @@ define(['durandal/system', 'services/data', 'services/messages'], function(syste
             }).fail(function() {
                 msg.showError("Failed to load kapitel");
             });
+        },
+        gotoTask: function(task) {
+            router.navigate("#task/" + task.ID);
         }
     };
     return viewModel;

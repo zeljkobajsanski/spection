@@ -1,4 +1,4 @@
-define(['services/data', 'services/messages'], function(data, msg) {
+define(['services/data', 'services/messages', 'plugins/router'], function(data, msg, router) {
     
     var favorite = ko.observable(''),
         tasks    = ko.observableArray([]);
@@ -13,6 +13,9 @@ define(['services/data', 'services/messages'], function(data, msg) {
             }).fail(function() {
                 msg.showError("Error during retriving tasks");
             });
+        },
+        gotoTask: function(task) {
+            router.navigate("#task/" + task.ID);
         }
     };
     return viewModel;
