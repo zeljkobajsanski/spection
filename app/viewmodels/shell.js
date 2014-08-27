@@ -43,13 +43,9 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
             
         },
         attached: function() {
-            $("#favorites").contextmenu({
-                target: "#favoritesContexMenu",
-                /*before: function(e) {
-                    alert("Favorites");
-                    e.preventDefault();
-                }*/
-            })
+            $("#favorites").on('taphold', {duration: 500}, function (tapEvt) {
+                $("#favorites").contextmenu({target: "#favoritesContexMenu"});
+            });
         }
     };
     
