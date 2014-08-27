@@ -14,6 +14,13 @@ define(['jquery'], function (jQuery) {
                 text: message,
                 class_name: 'gritter-error'
             });
+        },
+        showWarning: function (message) {
+            jQuery.gritter.add({
+                title: 'Warning',
+                text: message,
+                class_name: 'gritter-warning'
+            });
         }
     };
     return module;

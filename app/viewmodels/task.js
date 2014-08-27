@@ -1,5 +1,6 @@
 define(['durandal/app', 'services/data', 'services/messages'], function(app, data, msg) {
-    var PROJECT = 1;
+    var PROJECT = 1, USER = 1;
+    var taskId;
     var task = ko.mapping.fromJS({
         ID: '',
         AuthorID: '',
@@ -22,9 +23,9 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
         Use: '',
         TestCriteria: '',
         //Documents: [{ ID: 0, Name: 'test.pdf', Size: 100 }],
-        //Comments: [],
-        //Shortcuts: [],
-        //History: []
+        Comments: [],
+        Shortcuts: [],
+        History: []
     }),
         priorities = ko.observableArray([]),
         statuses = ko.observableArray([]),
@@ -45,7 +46,45 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
             data.getProductRisks().done(function(p) { productRisks(p); }),
             data.getLevels().done(function(l) { levels(l); })
                 .then(function() { app.trigger('busy', false); });
-        };
+        },
+        loadTask = function() {
+            if (taskId) {
+                app.trigger('busy', true);
+                data.getTask(taskId).done(function(t) {
+                    ko.mapping.fromJS(t, task);
+                }).always(function() { app.trigger('busy', false); });
+            } else {
+                createNewTask();
+            }
+        },
+        createNewTask = function() {
+            ko.mapping.fromJS({
+                ID: '',
+                AuthorID: '',
+                ProjectID: '',
+                Title: '',
+                PriorityID: '',
+                StatusID: '',
+                PhaseID: '',
+                Description: '',
+                Remark: '',
+                TypeID: '',
+                Solution: '',
+                ProjectRiskID: '',
+                ProductRiskID: '',
+                LevelID: '',
+                ProductCosts: '',
+                ProductionCosts: '',
+                BeneficialNumber: '',
+                Source: '',
+                Use: '',
+                TestCriteria: '',
+                //Documents: [{ ID: 0, Name: 'test.pdf', Size: 100 }],
+                Comments: [],
+                Shortcuts: [],
+                History: []
+            }, task);
+        }
     
     task.Title.extend({ required: true });
     var viewModel = {
@@ -58,9 +97,27 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
         projectRisks : projectRisks,
         productRisks : productRisks,
         levels : levels,
-        save: function() {},
-        activate: function(taskId) {
+        save: function() {
+            if (!task.Title.isValid()) {
+                msg.showWarning("Data are invalid");
+                return;
+            };
+            app.trigger('busy', true);
+            if (!task.ID()) {
+                task.AuthorID(USER);
+                task.ProjectID(PROJECT);
+            }
+            data.saveTask(ko.mapping.toJS(task)).done(function(id) {
+                task.ID(id);
+                msg.showInfo('Anforderung saved');
+            })
+            .fail(function () { msg.showError("Fehler"); })
+            .always(function () { app.trigger('busy', false); });
+        },
+        activate: function(task) {
+            taskId = task;
             loadData();
+            loadTask();
         },
         attached: function() {
                $('#tabs a[data-toggle="tab"]').on('shown.bs.tab', function(e) {

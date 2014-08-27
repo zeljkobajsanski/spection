@@ -68,7 +68,14 @@ define(['plugins/http'], function (http) {
                 return http.get(url + 'GetLevels');
             },
             saveTask: function (task) {
-                return http.post(url + "SaveTask", task);
+                //return http.post(url + "SaveTask", task);
+                return $.ajax({
+                    url: url + 'SaveTask',
+                    type: 'POST',
+                    crossDomain: true,
+                    dataType: 'json',//server response type
+                    data: task
+                });
             },
             getPhaseWithDetails : function (id) {
                 return http.get(url + 'GetPhaseWithDetails/' + id);

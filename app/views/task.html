@@ -1,12 +1,11 @@
 <div>
     <div class="page-header">
         <h1>
-            <i class="ace-icon fa fa-pencil"></i> Anforderung erstellen
+            <i class="ace-icon fa fa-pencil"></i> Anforderung erstellen 
+            <button class="btn btn-pink pull-right" type="button" data-bind="click: save">
+                <i class="ace-icon fa fa-save"></i> Speichern
+            </button>
         </h1>
-        <!--<button class="btn btn-pink pull-right" type="button" data-bind="click: save">
-            <i class="ace-icon fa fa-save"></i> Speichern
-        </button>
-        <div style="clear: both"></div>-->
     </div>
     <div class="row">
         <div class="col-xs-12">
@@ -222,36 +221,35 @@
                             </script>-->
                         </div>
                     </div>
-                    <!--<div class="tab-pane in" id="tab4">
+                    <div class="tab-pane in" id="tab4">
                         <h5 class="text-primary">Kommentare zur Anforderung</h5>
-                        <table class="table table-bordered"
-                               data-bind="dataTable: { gridId: 'commentsGrid', dataSource: task.Comments, columns: commentsColumns, options: { searching: false, info: false, lengthChange: false, sDom: '' } }">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr><th>Datum</th><th>Person</th><th>Kommentar</th></tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody data-bind="foreach: task.Comments">
+                            </tbody>
                         </table>
-                    </div>-->
-                    <!--<div class="tab-pane in" id="tab5">
+                    </div>
+                    <div class="tab-pane in" id="tab5">
                         <h5 class="text-primary">Verknüpfte Anforderungen</h5>
-                        <table class="table table-bordered"
-                               data-bind="dataTable: { gridId: 'shortcutsGrid', dataSource: task.Shortcuts, columns: shortcutsColumns, options: { searching: false, info: false, lengthChange: false, sDom: '' } }">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr><th>Verknüpfungsart</th><th>Nr.</th><th>Titel</th><th>Kommentar</th></tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody data-bind="foreach: task.Shortcuts">
+                            </tbody>
                         </table>
-                    </div>-->
-                    <!--<div class="tab-pane in" id="tab6">
+                    </div>
+                    <div class="tab-pane in" id="tab6">
                         <h5 class="text-primary">History zur Anforderung</h5>
-                        <table class="table table-bordered"
-                               data-bind="dataTable: { gridId: 'histroyGrid', dataSource: task.History, columns: historyColumns, options: { searching: false, info: false, lengthChange: false, sDom: '' } }">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr><th>Modifiziert am</th><th>Was</th><th>Person</th></tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody data-bind="foreach: task.History"></tbody>
                         </table>
-                    </div>-->
+                    </div>
                 </div>
 
             </div>

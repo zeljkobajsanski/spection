@@ -61,19 +61,13 @@
         <!-- responsive-min (ubaci ovu klasu i dole otkomentariši sidebar expand) -->
         <!-- sidebar goes here -->
         <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-           <!-- <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-                    <button class="btn btn-success"><i class="ace-icon fa fa-signal"></i></button>
-                    <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i></button>
-                    <button class="btn btn-warning"><i class="ace-icon fa fa-users"></i></button>
-                    <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i></button>
+            <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+                    <button class="btn btn-success" data-bind="click: createNewTask"><i class="ace-icon fa fa-file-text" title="Anforderung erstellen"></i></button>
                 </div>
 
                 <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
                     <span class="btn btn-success"></span>
-                    <span class="btn btn-info"></span>
-                    <span class="btn btn-warning"></span>
-                    <span class="btn btn-danger"></span>
-                </div>-->
+                </div>
         </div>
         <ul class="nav nav-list">
             <li>
@@ -109,7 +103,7 @@
                         </a>
                     </li>
                      <li>
-                        <a href="#" class="dropdown-toggle">
+                        <a href="#" class="dropdown-toggle" data-toggle="context" data-target="#favoritesContexMenu">
                             <i class="menu-icon fa fa-star"></i>
                             <span class=menu-text>Favoriten</span>
                             <b class="arrow fa fa-angle-down"></b>
@@ -120,7 +114,7 @@
                          </ul>
                     </li>
                      <li>
-                        <a href="#" class="dropdown-toggle">
+                        <a href="#" class="dropdown-toggle" data-toggle="context" data-target="#kapitelContexMenu">
                             <i class="menu-icon fa fa-list"></i>
                             <span class=menu-text>Kapitelstruktur</span>
                             <b class="arrow fa fa-angle-down"></b>
@@ -202,7 +196,7 @@
 
 <script type="text/html" id="favorites-template">
     <li>
-        <a href="#" data-bind="click: $parent.gotoFavorite">
+        <a href="#" data-bind="click: $parent.gotoFavorite" data-toggle="context" data-target="#favoritesContexMenu1">
             <span class="menu-text" data-bind="text: Label"></span>
             <span class="badge badge-warning" data-bind="text: Count"></span>
         </a>
@@ -211,7 +205,7 @@
 
 <script type="text/html" id="kapitel-template">
     <li>
-        <a href="#" data-bind="click: $root.gotoCaption" class="dropdown-toggle">
+        <a href="#" data-bind="click: $root.gotoCaption" class="dropdown-toggle" data-toggle="context" data-target="#kapitelContexMenu">
             <span class="menu-text" data-bind="text: Title"></span>
             <span class="badge badge-warning" data-bind="visible: Count>0, text: Count"></span>
             <b class="arrow fa fa-angle-down" data-bind="visible: SubCaptions.length>0"></b>
@@ -227,5 +221,22 @@
         </ul>
     </li>
 </script>
+
+<div id="favoritesContexMenu">
+    <ul class="dropdown-menu" role="menu">
+        <li><a tabindex="-1" href="#" data-bind="click: newFavorites"><i class="ace-icon fa fa-pencil"></i> Ordner hinzufugen</a></li>
+    </ul>
+</div>
+<div id="favoritesContexMenu1">
+    <ul class="dropdown-menu" role="menu">
+        <li><a tabindex="-1" href="#" data-bind="click: newFavorites"><i class="ace-icon fa fa-pencil"></i> Ordner hinzufugen</a></li>
+        <li><a tabindex="-1" href="#" data-bind="click: deleteFavorite"><i class="ace-icon fa fa-trash-o"></i> Favorit/Ordner loschen</a></li>
+    </ul>
+</div>
+<div id="kapitelContexMenu">
+    <ul class="dropdown-menu" role="menu">
+        <li><a tabindex="-1" href="javascript: void(0)"><i class="ace-icon fa fa-pencil"></i> Kapitelstruktur bearbeiten</a></li>
+    </ul>
+</div>
 
 <!-- /. Templates -->
