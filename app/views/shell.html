@@ -103,7 +103,7 @@
                         </a>
                     </li>
                      <li>
-                        <a href="#" class="dropdown-toggle" data-toggle="context" data-target="#favoritesContexMenu">
+                        <a href="#" class="dropdown-toggle" id="favorites" style="position: relative">
                             <i class="menu-icon fa fa-star"></i>
                             <span class="menu-text">Favoriten</span>
                             <b class="arrow fa fa-angle-down"></b>
@@ -195,7 +195,7 @@
 
 <script type="text/html" id="favorites-template">
     <li>
-        <a href="#" data-bind="click: $parent.gotoFavorite" data-toggle="context" data-target="#favoritesContexMenu1">
+        <a href="#" data-bind="click: $parent.gotoFavorite" data-toggle="context" data-target="#favoritesContexMenu1" style="position: relative">
             <span class="menu-text" data-bind="text: Label"></span>
             <span class="badge badge-warning" data-bind="text: Count"></span>
         </a>

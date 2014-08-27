@@ -37,7 +37,19 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
             router.navigate("#caption/" + caption.Id);
         },
         createNewTask: function() {
-                router.navigate("#task");
+            router.navigate("#task");
+        },
+        bindingComplete: function() {
+            
+        },
+        attached: function() {
+            $("#favorites").contextmenu({
+                target: "#favoritesContexMenu",
+                /*before: function(e) {
+                    alert("Favorites");
+                    e.preventDefault();
+                }*/
+            })
         }
     };
     
