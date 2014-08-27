@@ -193,25 +193,24 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
                         name: 'bild',//name should be here as well
 
                         //custom file input options
-                        btn_choose: 'Select Picture',
-                        droppable: true,
+                        btn_choose: 'Select Image',
                         maxSize: 3145728,   //~3 Mb
 
-                        /*//inline editable callback option
+                        //inline editable callback option
                         on_error: function (error_type) {
                             //invalid file selected, for example display an error message
                             if (error_type == 1) {
-                                //file format error
+                                msg.showWarning("Image type is incorrect");
                             } else if (error_type == 2) {
-                                //file size rror
+                                msg.showWarning("Image size is greater than 3MB");
                             }
                             else {
-                                //other error
+                                msg.showWarning("Image is not valid");
                             }
                         },
                         on_success: function () {
-                            $("#bild").show();
-                        }*/
+                            
+                        }
                     }
                 });
             });
