@@ -123,6 +123,7 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
                     for(var i = 0; i < files.length; i++) {
                         fd.append('files', files[i]);
                     }
+                    fileInput.ace_file_input('loading' , true);
                     data.saveFiles(fd).done(function() {
                         for(var i = 0; i < files.length; i++) {
                             var f = {FileName: files[i].name, Size: files[i].size};
@@ -131,7 +132,7 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
                         fileInput.ace_file_input("reset_input");
                     }).fail(function(){
                         msg.showError("File not saved");
-                    });
+                    }).always(function(){fileInput.ace_file_input('loading' , false);});
                 }
                 fd = new FormData();
                 var pictureInput = $("input[name=bild]");
