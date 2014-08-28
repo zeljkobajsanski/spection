@@ -2,7 +2,7 @@ define(['plugins/http'], function (http) {
     "use strict";
     //var url = 'http://localhost:49754/MobileData/',
     var url = 'http://spection.brizb.rs/MobileData/',
-        module = {
+    module = {
             getProject: function (projectId) {
                 return http.get(url + 'GetProject/' + projectId);
             },
@@ -126,6 +126,18 @@ define(['plugins/http'], function (http) {
                         //dataType: 'json',//depending on your server side response
                         data: data//our FormData object
                     });
+            },
+            saveFilter: function (filter) {
+                return http.post(url + 'SaveFilter', filter);
+            },
+            loadFilters: function (projectId, userId) {
+                return http.get(url + 'GetFilters', {projectId : projectId, userId : userId});   
+            },
+            deleteFilter: function (id) {
+                return http.remove(url + "RemoveFilter", {id: id});
+            },
+            loadFilter: function (id) {
+                return http.get(url + "GetFilter/" + id);
             }
         };
     return module;

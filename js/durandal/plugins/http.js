@@ -106,6 +106,16 @@ define(['jquery', 'knockout'], function ($, ko) {
                 headers: ko.toJS(headers)
             });
         },
+        post2: function (url, data) {
+            return $.ajax({
+                url: url,
+                data: data,
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                crossDomain: true,
+            });
+        },
         /**
          * Makes an HTTP DELETE request.
          * @method remove

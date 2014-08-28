@@ -33,6 +33,7 @@
                 </ul>
 
                 <div class="tab-content">
+                    <!-- Tab 1 -->
                     <div class="tab-pane in active" id="tab1">
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
@@ -101,6 +102,9 @@
 
                         </form>
                     </div>
+                    <!-- /. Tab 1 -->
+                    
+                    <!-- Tab 2 -->
                     <div class="tab-pane in" id="tab2">
                         <form class="form-horizontal" role="form">
                             <h5 class="text-primary">Bewertungen</h5>
@@ -154,6 +158,9 @@
                             </div>
                         </form>
                     </div>
+                    <!-- /. Tab 2 -->
+                    
+                    <!-- Tab 3 -->
                     <div class="tab-pane in" id="tab3">
                         <div class="row">
                             <div class="col-xs-6">
@@ -168,7 +175,7 @@
                                     </div>
                                     <div class="widget-body">
                                         <div class="widget-main">
-                                            <img data-bind="attr: {src: task.Picture}" id="bild" class="img-responsive" style="max-height: 350px;"/>
+                                            <img data-bind="attr: {src: task.Picture}" alt="Image" id="bild" class="img-responsive" style="max-height: 350px;"/>
                                         </div>
                                         <div class="widget-toolbox clearfix">
 
@@ -224,6 +231,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- /. Tab 3 -->
+                    
+                    <!-- Tab 4 -->
                     <div class="tab-pane in" id="tab4">
                         <h5 class="text-primary">Kommentare zur Anforderung</h5>
                         <table class="table table-bordered">
@@ -234,6 +244,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <!-- /. Tab 4 -->
+                    
+                    <!-- Tab 5 -->
                     <div class="tab-pane in" id="tab5">
                         <h5 class="text-primary">Verknüpfte Anforderungen</h5>
                         <table class="table table-bordered">
@@ -244,6 +257,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <!-- /. Tab 5 -->
+                    
+                    <!-- Tab 6 -->
                     <div class="tab-pane in" id="tab6">
                         <h5 class="text-primary">History zur Anforderung</h5>
                         <table class="table table-bordered">
@@ -253,6 +269,7 @@
                             <tbody data-bind="foreach: task.History"></tbody>
                         </table>
                     </div>
+                    <!-- /. Tab 6 -->
                 </div>
 
             </div>

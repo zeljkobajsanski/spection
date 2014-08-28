@@ -19,6 +19,7 @@
         <div class="navbar-buttons navbar-header pull-right ">
             <ul class="nav ace-nav">
                 <!-- user buttons such as messages, notifications and user menu -->
+                <li class="white" style="margin-right: 8px" data-bind="visible: busy"><i class="ace-icon fa fa-spinner fa-spin"></i> Please wait... </li>
                 <li class="purple">
                     <a href="#">
                         <i class="ace-icon fa fa-bell icon-animated-bell"></i>
@@ -33,8 +34,8 @@
                 </li>
                 <li class="light-blue user-min">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                        <img src="images/user.jpg" class="nav-user-photo" />
-                        <span class="user-info"><small>Willkommen,</small>Fritz</span>
+                        <img src="images/ja.jpg" class="nav-user-photo" />
+                        <span class="user-info"><small>Willkommen, </small>Zeks</span>
                     </a>
                     <ul class="user-menu dropdown-menu dropdown-menu-right dropdown-yellow dropdown-caret dropdown-close">
                          <li><a href="#"><i class="ace-icon fa fa-cog"></i> Settings</a></li>
@@ -96,11 +97,14 @@
                             <span class="menu-text">Projekt</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#">
+                    <li id="filters">
+                        <a href="#" data-toggle="context" data-target="#filterContextMenu" class="dropdown-toggle">
                             <i class="menu-icon fa fa-search"></i>
                             <span class="menu-text">Meine filter</span>
+                            <b class="arrow fa fa-angle-down"></b>
                         </a>
+                        <b class="arrow"></b>
+                        <ul class="submenu" data-bind="template: {name: 'filters-template', foreach: filters}"></ul>
                     </li>
                      <li id="favorites">
                         <a href="#" class="dropdown-toggle" style="position: relative" data-toggle="context" data-target="#favoritesContexMenu">
@@ -196,7 +200,7 @@
 <script type="text/html" id="favorites-template">
     <li>
         <a href="#" data-bind="click: $parent.gotoFavorite, attr: {'data-id': Id}" class="favorites">
-            <span class="menu-text" data-bind="text: Label"></span>
+            <small class="menu-text" data-bind="text: Label"></small>
             <span class="badge badge-warning" data-bind="text: Count"></span>
         </a>
     </li>
@@ -205,7 +209,7 @@
 <script type="text/html" id="kapitel-template">
     <li>
         <a href="#" data-bind="click: $root.gotoCaption, attr: { 'data-id': Id }" class="dropdown-toggle kapitel">
-            <span class="menu-text" data-bind="text: Title"></span>
+            <small class="menu-text" data-bind="text: Title"></small>
             <span class="badge badge-warning" data-bind="visible: Count>0, text: Count"></span>
             <b class="arrow fa fa-angle-down" data-bind="visible: SubCaptions.length>0"></b>
         </a>
@@ -213,11 +217,18 @@
         <ul class="submenu" data-bind="template: {name: 'kapitel-template', foreach: SubCaptions}">
             <li>
                 <a href="#" data-bind="click: $root.gotoCaption">
-                    <span class="menu-text" data-bind="text: Title"></span>
+                    <small class="menu-text" data-bind="text: Title"></small>
                     <span class="badge badge-warning" data-bind="visible: Count>0, text: Count"></span>
                 </a>
             </li>
         </ul>
+    </li>
+</script>
+<script type="text/html" id="filters-template">
+    <li>
+        <a href="#" class="filter" data-bind="attr: {'data-id': ID}">
+            <small data-bind="text: Name"></small>
+        </a>
     </li>
 </script>
 
@@ -229,12 +240,25 @@
 <div id="favoritesContexMenu1">
     <ul class="dropdown-menu" role="menu">
         <li><a tabindex="-1" href="#" data-action="edit"><i class="ace-icon fa fa-pencil"></i> Ordner hinzufugen</a></li>
+        <li class="divider"></li>
         <li><a tabindex="-1" href="#" data-action="delete"><i class="ace-icon fa fa-trash-o"></i> Favorit/Ordner loschen</a></li>
     </ul>
 </div>
 <div id="kapitelContexMenu">
     <ul class="dropdown-menu" role="menu">
         <li><a tabindex="-1" href="javascript: void(0)"><i class="ace-icon fa fa-pencil"></i> Kapitelstruktur bearbeiten</a></li>
+    </ul>
+</div>
+<div id="filterContextMenu">
+    <ul class="dropdown-menu" role="menu">
+        <li><a tabindex="-1" href="javascript:void(0)" data-bind="click: newFilter"><i class="ace-icon fa fa-pencil"></i> Ordner hinzufugen</a></li>
+    </ul>
+</div>
+<div id="filterContextMenu1">
+    <ul class="dropdown-menu" role="menu">
+        <li><a tabindex="-1" href="javascript:void(0)" data-action="edit"><i class="ace-icon fa fa-pencil"></i> Ordner hinzufugen</a></li>
+        <li class="divider"></li>
+        <li><a tabindex="-1" href="javascript:void(0)" data-action="delete"><i class="ace-icon fa fa-trash-o"></i> Filter loschen</a></li>
     </ul>
 </div>
 <!-- /. Templates -->

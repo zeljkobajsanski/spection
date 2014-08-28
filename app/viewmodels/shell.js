@@ -2,12 +2,16 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
 
     var favorites       = ko.observableArray([]),
         myFilter        = ko.observableArray([]),
-        kapitelStruktur = ko.observableArray([]);
+        kapitelStruktur = ko.observableArray([]),
+        busy            = ko.observable(false);
     return {
         router: router,
+        busy: busy,
+        filters: myFilter,
         favorites: favorites,
         kapitelStruktur: kapitelStruktur,
         activate: function() {
+            loadFilters();
             loadFavorites();
             loadKapitel();
             router.map([
@@ -40,7 +44,13 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
                 };
             })
         },
+        newFilter: function() {
+            app.showDialog('viewmodels/dialogs/filter').then(function (saved) {
+                if (saved) loadFilters();    
+            });   
+        },
         attached: function() {
+            app.on('busy', function(isBusy){busy(isBusy);}),
             $(".nav-list").contextmenu({
                 scopes: '.favorites', 
                 target: '#favoritesContexMenu1',
@@ -70,6 +80,29 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
                     });
                 }
             });
+            $("#filters").contextmenu({
+                scopes: '.filter',
+                target: '#filterContextMenu1',
+                onItem: function (ctx, e) {
+                    var id = $(ctx).data('id');
+                    var action = $(e.target).data('action');
+                    switch(action) {
+                        case "edit":
+                            app.showDialog('viewmodels/dialogs/filter', id).then(function (saved) {
+                                if (saved) loadFilters();    
+                            }); 
+                            break;
+                        case "delete":
+                            data.deleteFilter(id).done(function(){
+                                loadFilters();
+                            }).fail(function(){
+                                msg.showError('Filter not deleted');
+                            });
+                            break;
+                    }
+                }
+                
+            });
             app.on('refresh:kapitel', loadKapitel);
             /*$("#favorites").on('taphold', {duration: 500}, function (tapEvt) {
                 $(this).contextmenu('show', tapEvt);
@@ -89,6 +122,14 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
         kapitelStruktur(kapitel);
         }).fail(function(){
             msg.showError("Kapitelstruktur loading failed");
+        });
+    }
+                
+    function loadFilters() {
+        data.loadFilters(1, 1).done(function (f) {
+            myFilter(f);
+        }).fail(function () { 
+            msg.showError('Filters loading failed') 
         });
     }
 })
