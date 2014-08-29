@@ -1,0 +1,59 @@
+<div class="login-layout">
+    <div class="login-container">
+        <div class="position-relative">
+            <div id="login-box" class="login-box visible widget-box no-border">
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <h4 class="header blue lighter bigger">
+                            <i class="ace-icon fa fa-coffee green"></i>
+                            Sign in
+                        </h4>
+                        <div class="space-6"></div>
+
+                        <form data-bind="submit: login">
+                            <fieldset>
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" class="form-control" placeholder="Benutzer" data-bind="value: username"/>
+                                        <i class="ace-icon fa fa-user"></i>
+                                    </span>
+                                </label>
+
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="password" class="form-control" placeholder="Passwort" data-bind="value: password"/>
+                                        <i class="ace-icon fa fa-lock"></i>
+                                    </span>
+                                </label>
+                                
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" class="form-control" placeholder="Projekt" data-bind="value: project"/>
+                                        <i class="ace-icon fa fa-briefcase"></i>
+                                    </span>
+                                </label>
+
+                                <div class="space"></div>
+
+                                <div class="clearfix">
+                                    <label class="inline">
+                                        <input type="checkbox" class="ace" data-bind="checked: rememberMe"/>
+                                        <span class="lbl"> Remember Me</span>
+                                    </label>
+
+                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                                        <i class="ace-icon fa fa-key"></i>
+                                        <span class="bigger-110">Login</span>
+                                    </button>
+                                </div>
+
+                                <div class="space-4"></div>
+                            </fieldset>
+                        </form>
+                        <p class="text-danger" data-bind="text: message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

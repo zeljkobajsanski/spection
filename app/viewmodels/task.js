@@ -216,7 +216,8 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
                     }
                 });
             });
-        }
+        },
+        preventAnonymous : true
     };
     return viewModel;
 })

@@ -16,7 +16,8 @@ define(['services/data', 'services/messages', 'plugins/router'], function(data, 
         },
         gotoTask: function(task) {
             router.navigate("#task/" + task.ID);
-        }
+        },
+        preventAnonymous : true
     };
     return viewModel;
 })

@@ -1,4 +1,4 @@
-define(['plugins/router', 'services/data', 'services/messages', 'durandal/system', 'durandal/app'], function(router, data, msg, sys, app) {
+define(['plugins/router', 'services/data', 'services/messages', 'durandal/system', 'durandal/app', 'services/auth'], function(router, data, msg, sys, app, auth) {
 
     var favorites       = ko.observableArray([]),
         myFilter        = ko.observableArray([]),
@@ -14,6 +14,7 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
         favorites: favorites,
         kapitelStruktur: kapitelStruktur,
         activate: function() {
+            auth.tryLoadUser();
             loadFilters();
             loadFavorites();
             loadKapitel();
@@ -28,6 +29,8 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
                 { route: 'caption/:id', title: 'Kapitel', moduleId: 'viewmodels/caption' },
                 { route: 'task(/:id)', title: 'Task', moduleId: 'viewmodels/task' },
                 { route: 'search/:id', title: 'Tasks', moduleId: 'viewmodels/search' },
+                { route: 'login', title: '', moduleId: 'viewmodels/login', },
+                { route: 'login/:redirect', title: '', moduleId: 'viewmodels/login' },
             ]).buildNavigationModel();
 
             return router.activate();
@@ -56,6 +59,10 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
         searchTasks: function(filter) {
             app.trigger('search', filter.filter.ID);
             router.navigate('#search/' + filter.filter.ID);
+        },
+        auth: auth,
+        logout: function () {
+            auth.logout();
         },
         attached: function() {
             app.on('busy', function(isBusy){busy(isBusy);}),

@@ -27,6 +27,7 @@ define(['services/data', 'services/messages', 'plugins/router', 'durandal/app'],
         this.deactivate = function (){
             if (subscription) subscription.off();
         };
+        this.preventAnonymous = true;
     };
     
     return vm;

@@ -17,7 +17,8 @@ define(['durandal/system', 'services/data', 'services/messages', 'plugins/router
         },
         gotoTask: function(task) {
             router.navigate("#task/" + task.ID);
-        }
+        },
+        preventAnonymous : true
     };
     return viewModel;
 })

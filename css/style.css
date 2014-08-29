@@ -16,3 +16,12 @@ html {
 .ace-nav .nav-user-photo {
     border: 0;   
 }
+
+.login-layout {
+    background-color: transparent;   
+    padding-top: 10%;
+}
+
+.login-layout .widget-box {
+    background-color: #438eb9;
+}
