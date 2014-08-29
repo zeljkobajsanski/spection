@@ -54,8 +54,8 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
             });   
         },
         searchTasks: function(filter) {
-            app.trigger('search', filter.ID);
-            router.navigate('#search/' + filter.ID);
+            app.trigger('search', filter.filter.ID);
+            router.navigate('#search/' + filter.filter.ID);
         },
         attached: function() {
             app.on('busy', function(isBusy){busy(isBusy);}),

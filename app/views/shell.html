@@ -233,8 +233,9 @@
 </script>
 <script type="text/html" id="filters-template">
     <li>
-        <a href="#" class="filter" data-bind="attr: {'data-id': ID}, click: $root.searchTasks">
-            <small data-bind="text: Name"></small>
+        <a href="#" class="filter" data-bind="attr: {'data-id': filter.ID}, click: $root.searchTasks">
+            <small data-bind="text: filter.Name"></small>
+            <span class="badge badge-warning" data-bind="text: Count"></span>
         </a>
     </li>
 </script>
