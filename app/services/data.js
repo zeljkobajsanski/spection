@@ -1,8 +1,7 @@
 define(['plugins/http'], function (http) {
     "use strict";
-    //var url = 'http://localhost:49754/MobileData/',
-    //var url = 'http://dev.spection.ch/Data/',
-    var url = 'http://api.spection.brizb.rs/Data/',
+    //var url = 'http://api.spection.brizb.rs/Data/',
+    var url = 'http://dev.spection.ch/Data/',
     module = {
             getProject: function (projectId) {
                 return http.get(url + 'GetProject/' + projectId);
@@ -130,6 +129,9 @@ define(['plugins/http'], function (http) {
             },
             login: function (credentials) {
                 return http.post(url + 'Login', credentials);   
+            },
+            addToFavorites: function (data) {
+                return http.post(url + 'AddToFavorites', data);
             }
         };
     return module;

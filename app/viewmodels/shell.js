@@ -119,6 +119,7 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
                 
             });
             app.on('refresh:kapitel', loadKapitel);
+            app.on('refresh:favorites', loadFavorites);
             /*$("#favorites").on('taphold', {duration: 500}, function (tapEvt) {
                 $(this).contextmenu('show', tapEvt);
                 return false;

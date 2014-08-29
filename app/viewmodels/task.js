@@ -37,7 +37,8 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
         milestones = ko.observableArray([]),
         projectRisks = ko.observableArray([]),
         productRisks = ko.observableArray([]),
-        levels = ko.observableArray([]);
+        levels = ko.observableArray([]),
+        favorites = ko.observableArray([]);
     var loadData = function() {
             app.trigger('busy', true);
             $.when(data.getPriorities().done(function(p) { priorities(p); }),
@@ -47,7 +48,8 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
             data.getTaskTypes().done(function(t) { types(t); }),
             data.getProjectRisks().done(function(p) { projectRisks(p); }),
             data.getProductRisks().done(function(p) { productRisks(p); }),
-            data.getLevels().done(function(l) { levels(l); })
+            data.getLevels().done(function(l) { levels(l); }),
+            data.getFavorites(PROJECT, USER).done(function (fav) {favorites(fav);})
                 .then(function() { app.trigger('busy', false); });
         },
         loadTask = function() {
@@ -103,6 +105,7 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
         projectRisks : projectRisks,
         productRisks : productRisks,
         levels : levels,
+        favorites: favorites,
         save: function() {
             if (!task.Title.isValid()) {
                 msg.showWarning("Data are invalid");
@@ -171,6 +174,11 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
                 })
                 msg.showWarning("File deleted");
             }).fail(function(){msg.showError("Delete failed")});
+        },
+        addToFavorites: function (favorite) {
+            data.addToFavorites({taskId: task.ID, favoriteId: favorite.Id}).done(function() {
+                app.trigger('refresh:favorites'); 
+            });
         },
         activate: function(task) {
             taskId = task;
