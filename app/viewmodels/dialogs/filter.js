@@ -2,7 +2,7 @@ define(['services/data', 'services/messages', 'plugins/dialog'], function (data,
     var vm = function () {
         var that = this;
         var searchTypes = [{id: 1, label: 'alle'}, {id: 2, label: 'eine'}],
-        filterTypes = [{id: 1, label: 'Autor'}, {id: 2, label: 'Bemerkung/Erganzung'}, {id: 3, label: 'Kommentare'}, {id: 4, label: 'Beschreibung'}, {id: 5, label: 'Herstellungkosten'}],
+        filterTypes = [{id: 1, label: 'Titel'}, {id: 2, label: 'Prioritat'}, {id: 3, label: 'Status'}, {id: 4, label: 'Beschreibung'}, {id: 5, label: 'Bemerkung/Erganzung'}, {id: 6, label: 'Typ'}, {id: 7, label: 'Autor'}],
         operators = ko.observableArray([]),
         booleanOperators = [{id: 1, label: 'ist'}, {id: 2, label: 'ist nicht'}],
         textOperators = [{id: 3, label: 'enthalt'}, {id: 4, label: 'enthalt nicht'}],
@@ -10,28 +10,42 @@ define(['services/data', 'services/messages', 'plugins/dialog'], function (data,
         TEXT_EDITOR = 'text',
         NUMERIC_EDITOR = 'numeric',
         LOOKUP_EDITOR = 'select',
+        priorities = [],
+        statuses = [],
+        types = [],
+        authors = [],
         filter = ko.mapping.fromJS({ID: undefined, Name: '', FilterType: 1, FilterItems: [], UserID: 1, ProjectID: 1});
         filter.Name.extend({required: true, message: 'Required'});
         
         var populate = function (item) {
             item.Fields = filterTypes;
             switch(ko.unwrap(item.Field)) {
-                case 1:
                 case 2:
+                    item.Values(priorities);
                     item.Operators(booleanOperators);
                     item.Editor(LOOKUP_EDITOR);
                     break;
                 case 3:
+                    item.Values(statuses);
+                    item.Operators(booleanOperators);
+                    item.Editor(LOOKUP_EDITOR);
+                    break;
+                case 6:
+                    item.Values(types);
+                    item.Operators(booleanOperators);
+                    item.Editor(LOOKUP_EDITOR);
+                    break;
+                case 7:
+                    item.Values(authors);
+                    item.Operators(booleanOperators);
+                    item.Editor(LOOKUP_EDITOR);
+                    break;
+                case 1:
                 case 4:
+                case 5:
+                case 7:
                     item.Operators(textOperators);
                     item.Editor(TEXT_EDITOR);
-                    break;
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                    item.Operators(numericOperators);
-                    item.Editor(NUMERIC_EDITOR);
                     break;
             }
         };
@@ -41,9 +55,12 @@ define(['services/data', 'services/messages', 'plugins/dialog'], function (data,
         };
         
         var addItem = function (id, field, operator, value) {
-            var item = ko.mapping.fromJS({ID: id, Field: field ? field : 1, Operator: 1, Value: value ? value : '', Operators: [], Editor: ''});
+            var item = ko.mapping.fromJS({ID: id, Field: field ? field : 1, Operator: operator ? operator : 3, Value: value, Operators: [], Editor: '', Values: []});
             populate(item);
-            item.Field.subscribe(function(){populate(this);}, item);
+            item.Field.subscribe(function(){
+                this.Value = '';
+                populate(this);
+            }, item);
             filter.FilterItems.push(item);
         };
         
@@ -57,6 +74,10 @@ define(['services/data', 'services/messages', 'plugins/dialog'], function (data,
             });
         };
         this.addItem = addNewItem;
+        this.removeItem = function(item) {
+            if (filter.FilterItems().length == 1) return;
+            filter.FilterItems.remove(item);
+        };
         this.save = function () {
             
             if (!filter.Name.isValid()) {
@@ -69,6 +90,7 @@ define(['services/data', 'services/messages', 'plugins/dialog'], function (data,
                 delete item.Fields;
                 delete item.Operators;
                 delete item.Editor;
+                delete item.Values;
             })
             data.saveFilter(f).done(function () {
                 $("#dialog").modal('hide');
@@ -78,18 +100,24 @@ define(['services/data', 'services/messages', 'plugins/dialog'], function (data,
             });
         };
         this.activate = function (id) {
-            if (id) {
-                data.loadFilter(id).done(function (f) {
-                    var items = f.FilterItems;
-                    f.FilterItems = [];
-                    ko.mapping.fromJS(f, filter);
-                    items.forEach(function (item){
-                        addItem(item.ID, item.Field, item.Operator, item.Value);
-                    })
-                });
-            } else {
-                addItem();
-            }
+            $.when(data.getPriorities(), data.getTaskStatuses(), data.getTaskTypes()).done(function(p, s, t){
+                priorities = p[0];
+                statuses = s[0];
+                types = t[0];
+                
+                if (id) {
+                    data.loadFilter(id).done(function (f) {
+                        var items = f.FilterItems;
+                        f.FilterItems = [];
+                        ko.mapping.fromJS(f, filter);
+                        items.forEach(function (item){
+                            addItem(item.ID, item.Field, item.Operator, item.Value);
+                        })
+                    });
+                } else {
+                    addItem();
+                }
+            })
         };
     };
     

@@ -3,6 +3,7 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
     var taskId;
     var task = ko.mapping.fromJS({
         ID: '',
+        ProjectID: PROJECT,
         AuthorID: '',
         ProjectID: '',
         Title: '',
@@ -62,6 +63,7 @@ define(['durandal/app', 'services/data', 'services/messages'], function(app, dat
         createNewTask = function() {
             ko.mapping.fromJS({
                 ID: '',
+                ProjectID: PROJECT,
                 AuthorID: '',
                 ProjectID: '',
                 Title: '',

@@ -6,9 +6,6 @@ define(['plugins/http'], function (http) {
             getProject: function (projectId) {
                 return http.get(url + 'GetProject/' + projectId);
             },
-            filterTasks: function (filterId) {
-                return http.get(url + 'FilterTasks/' + filterId);
-            },
             saveFavorite: function (favorite) {
                 return $.ajax({
                     url: url + 'SaveFavorite',
@@ -138,6 +135,9 @@ define(['plugins/http'], function (http) {
             },
             loadFilter: function (id) {
                 return http.get(url + "GetFilter/" + id);
+            },
+            filterTasks: function (id) {
+                return http.get(url + 'SearchTasks/' + id);
             }
         };
     return module;

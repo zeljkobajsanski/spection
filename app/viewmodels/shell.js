@@ -4,6 +4,9 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
         myFilter        = ko.observableArray([]),
         kapitelStruktur = ko.observableArray([]),
         busy            = ko.observable(false);
+    router.isNavigating.subscribe(function (value){
+        busy(value);
+    });
     return {
         router: router,
         busy: busy,
@@ -24,6 +27,7 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
                 { route: 'favorite/:id', title: 'Favorite', moduleId: 'viewmodels/favorite' },
                 { route: 'caption/:id', title: 'Kapitel', moduleId: 'viewmodels/caption' },
                 { route: 'task(/:id)', title: 'Task', moduleId: 'viewmodels/task' },
+                { route: 'search/:id', title: 'Tasks', moduleId: 'viewmodels/search' },
             ]).buildNavigationModel();
 
             return router.activate();
@@ -48,6 +52,10 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
             app.showDialog('viewmodels/dialogs/filter').then(function (saved) {
                 if (saved) loadFilters();    
             });   
+        },
+        searchTasks: function(filter) {
+            app.trigger('search', filter.ID);
+            router.navigate('#search/' + filter.ID);
         },
         attached: function() {
             app.on('busy', function(isBusy){busy(isBusy);}),

@@ -12,3 +12,7 @@ html {
     width: 100px;
     display: inline-block;
 }
+
+.ace-nav .nav-user-photo {
+    border: 0;   
+}
