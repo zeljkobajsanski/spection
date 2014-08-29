@@ -1,7 +1,7 @@
 define(['plugins/http'], function (http) {
     "use strict";
-    //var url = 'http://api.spection.brizb.rs/Data/',
-    var url = 'http://dev.spection.ch/Data/',
+    var url = 'http://api.spection.brizb.rs/Data/',
+    //var url = 'http://dev.spection.ch/Data/',
     module = {
             getProject: function (projectId) {
                 return http.get(url + 'GetProject/' + projectId);
