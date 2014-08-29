@@ -21,7 +21,7 @@ html {
     background-color: transparent;   
 }
 
-@media screen and (min-device-width: 1024px) {
+@media screen and (min-device-width: 960px) {
     .login-layout {
         padding-top: 10%;
     }
