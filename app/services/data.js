@@ -1,19 +1,14 @@
 define(['plugins/http'], function (http) {
     "use strict";
     //var url = 'http://localhost:49754/MobileData/',
-    var url = 'http://spection.brizb.rs/MobileData/',
+    //var url = 'http://dev.spection.ch/Data/',
+    var url = 'http://api.spection.brizb.rs/Data/',
     module = {
             getProject: function (projectId) {
                 return http.get(url + 'GetProject/' + projectId);
             },
             saveFavorite: function (favorite) {
-                return $.ajax({
-                    url: url + 'SaveFavorite',
-                    type: 'POST',
-                    crossDomain: true,
-                    dataType: 'json',//server response type
-                    data: favorite
-                });
+                return http.post(url + 'SaveFavorite', favorite);
             },
             getFavorites: function (projId, userId) {
                 return http.get(url + 'GetFavorites', { projectId: projId, userId: userId });
@@ -28,14 +23,7 @@ define(['plugins/http'], function (http) {
                 return http.get(url + 'GetCaptions', { projectId: projectId });
             },
             savePhase: function (data) {
-                return $.ajax({
-                    url: url + 'SavePhase',
-                    type: 'POST',
-                    processData: false,//important
-                    contentType: false,//important
-                    dataType: 'json',//server response type
-                    data: data
-                });
+                return http.post(url + 'SavePhase', data);
             },
             getSubPhases: function (projectId, superphase) {
                 return http.get(url + 'GetSubPhases', { projectId: projectId, superPhaseId: superphase });
@@ -131,7 +119,8 @@ define(['plugins/http'], function (http) {
                 return http.get(url + 'GetFilters', {projectId : projectId, userId : userId});   
             },
             deleteFilter: function (id) {
-                return http.remove(url + "RemoveFilter", {id: id});
+                //return http.remove(url + "RemoveFilter", {id: id});
+                return http.post(url + "RemoveFilter", {id: id});
             },
             loadFilter: function (id) {
                 return http.get(url + "GetFilter/" + id);

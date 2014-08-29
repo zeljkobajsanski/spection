@@ -5,6 +5,7 @@ define(['durandal/app', 'services/data', 'services/storage', 'plugins/dialog', '
         var self = this;
         var phase = {
             ID: 0,
+            ProjectID: projId,
             Order: ko.observable(''),
             Title: ko.observable('').extend({ required: true }),
             Description: ko.observable(''),
@@ -51,27 +52,9 @@ define(['durandal/app', 'services/data', 'services/storage', 'plugins/dialog', '
         };
         this.save = function () {
             if (!phase.Title.isValid()) return;
-            
-            var formData = new FormData();
-            formData.append('ID', phase.ID);
-            formData.append('ProjectID', projId);
-            formData.append('Order', phase.Order());
-            formData.append('Title', phase.Title());
-            formData.append('Description', phase.Description());
-            formData.append('SuperPhaseID', phase.SuperPhase() ? phase.SuperPhase().ID : '');
-            
-            // Image
-            var $form = $("#photo").next().find('.editableform:eq(0)');
-            $form.find('input[type=file]').each(function () {
-                var files = $(this).data('ace_input_files');
-                if (files && files.length > 0) {
-                    formData.append('ImageWrapper', files[0]);
-                }
-            });
-            
             // Post
             app.trigger('busy', true);
-            data.savePhase(formData).done(function () {
+            data.savePhase(phase).done(function () {
                 $("#phase-dialog").modal('hide');
                 msg.showInfo('Kapitel saved');
                 app.trigger('refresh:phases');
@@ -81,6 +64,7 @@ define(['durandal/app', 'services/data', 'services/storage', 'plugins/dialog', '
         this.activate = function(id) {
             if (id) {
                 data.getPhase(id).done(function(p) {
+                    self.phase.ProjectID = p.ProjectID,
                     self.phase.ID = p.ID;
                     self.phase.Order(p.Order);
                     self.phase.Title(p.Title);

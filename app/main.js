@@ -1,4 +1,5 @@
 requirejs.config({
+    urlArgs: "version=1.1",
     paths: {
         'text': '../js/text',
         'durandal': '../js/durandal',
