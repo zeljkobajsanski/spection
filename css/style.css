@@ -19,9 +19,15 @@ html {
 
 .login-layout {
     background-color: transparent;   
-    padding-top: 10%;
+}
+
+@media screen and (min-device-width: 1024px) {
+    .login-layout {
+        padding-top: 10%;
+    }
 }
 
 .login-layout .widget-box {
     background-color: #438eb9;
 }
+
