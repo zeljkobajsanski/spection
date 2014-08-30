@@ -1,10 +1,10 @@
-define(['plugins/router', 'services/data', 'services/messages', 'durandal/system', 'durandal/app', 'services/auth'], function(router, data, msg, sys, app, auth) {
+define(['plugins/router', 'services/data', 'services/messages', 'durandal/system', 'durandal/app', 'services/auth'], function (router, data, msg, sys, app, auth) {
 
-    var favorites       = ko.observableArray([]),
-        myFilter        = ko.observableArray([]),
+    var favorites = ko.observableArray([]),
+        myFilter = ko.observableArray([]),
         kapitelStruktur = ko.observableArray([]),
-        busy            = ko.observable(false);
-    router.isNavigating.subscribe(function (value){
+        busy = ko.observable(false);
+    router.isNavigating.subscribe(function (value) {
         busy(value);
     });
     return {
@@ -13,50 +13,98 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
         filters: myFilter,
         favorites: favorites,
         kapitelStruktur: kapitelStruktur,
-        activate: function() {
+        activate: function () {
             auth.tryLoadUser();
             loadFilters();
             loadFavorites();
             loadKapitel();
             router.map([
-                { route: '', title: 'Home', moduleId: 'viewmodels/home' },
-                { route: 'projekte', title: 'Projekte', moduleId: 'viewmodels/projekte' },
-                { route: 'usecase', title: 'Use Cases', moduleId: 'viewmodels/usecases' },
-                { route: 'review', title: 'Review', moduleId: 'viewmodels/review' },
-                { route: 'umsetzung', title: 'Umsetzung', moduleId: 'viewmodels/umsetzung' },
-                { route: 'feedback', title: 'Produktfeedback', moduleId: 'viewmodels/feedback' },
-                { route: 'favorite/:id', title: 'Favorite', moduleId: 'viewmodels/favorite' },
-                { route: 'caption/:id', title: 'Kapitel', moduleId: 'viewmodels/caption' },
-                { route: 'task(/:id)', title: 'Task', moduleId: 'viewmodels/task' },
-                { route: 'search/:id', title: 'Tasks', moduleId: 'viewmodels/search' },
-                { route: 'login', title: '', moduleId: 'viewmodels/login', },
-                { route: 'login/:redirect', title: '', moduleId: 'viewmodels/login' },
+                {
+                    route: '',
+                    title: 'Home',
+                    moduleId: 'viewmodels/home'
+                },
+                {
+                    route: 'projekte',
+                    title: 'Projekte',
+                    moduleId: 'viewmodels/projekte'
+                },
+                {
+                    route: 'usecase',
+                    title: 'Use Cases',
+                    moduleId: 'viewmodels/usecases'
+                },
+                {
+                    route: 'review',
+                    title: 'Review',
+                    moduleId: 'viewmodels/review'
+                },
+                {
+                    route: 'umsetzung',
+                    title: 'Umsetzung',
+                    moduleId: 'viewmodels/umsetzung'
+                },
+                {
+                    route: 'feedback',
+                    title: 'Produktfeedback',
+                    moduleId: 'viewmodels/feedback'
+                },
+                {
+                    route: 'favorite/:id',
+                    title: 'Favorite',
+                    moduleId: 'viewmodels/favorite'
+                },
+                {
+                    route: 'caption/:id',
+                    title: 'Kapitel',
+                    moduleId: 'viewmodels/caption'
+                },
+                {
+                    route: 'task(/:id)',
+                    title: 'Task',
+                    moduleId: 'viewmodels/task'
+                },
+                {
+                    route: 'search/:id',
+                    title: 'Tasks',
+                    moduleId: 'viewmodels/search'
+                },
+                {
+                    route: 'login',
+                    title: '',
+                    moduleId: 'viewmodels/login',
+                },
+                {
+                    route: 'login/:redirect',
+                    title: '',
+                    moduleId: 'viewmodels/login'
+                },
             ]).buildNavigationModel();
 
             return router.activate();
         },
-        gotoFavorite: function(favorite) {
+        gotoFavorite: function (favorite) {
             router.navigate('#favorite/' + favorite.Id);
         },
-        gotoCaption: function(caption) {
+        gotoCaption: function (caption) {
             router.navigate("#caption/" + caption.Id);
         },
-        createNewTask: function() {
+        createNewTask: function () {
             router.navigate("#task");
         },
-        newFavorites: function() {
-            app.showDialog('viewmodels/dialogs/favorite').then(function(result) {
+        newFavorites: function () {
+            app.showDialog('viewmodels/dialogs/favorite').then(function (result) {
                 if (result.saved) {
                     loadFavorites();
                 };
             })
         },
-        newFilter: function() {
+        newFilter: function () {
             app.showDialog('viewmodels/dialogs/filter').then(function (saved) {
-                if (saved) loadFilters();    
-            });   
+                if (saved) loadFilters();
+            });
         },
-        searchTasks: function(filter) {
+        searchTasks: function (filter) {
             app.trigger('search', filter.filter.ID);
             router.navigate('#search/' + filter.filter.ID);
         },
@@ -64,34 +112,38 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
         logout: function () {
             auth.logout();
         },
-        attached: function() {
-            app.on('busy', function(isBusy){busy(isBusy);}),
+        attached: function () {
+            app.on('busy', function (isBusy) {
+                busy(isBusy);
+            }),
             $(".nav-list").contextmenu({
-                scopes: '.favorites', 
+                scopes: '.favorites',
                 target: '#favoritesContexMenu1',
-                onItem: function(ctx, e) {
+                onItem: function (ctx, e) {
                     var id = $(ctx).data('id');
                     var target = $(e.target).data('action');
                     if (target === 'edit') {
-                        app.showDialog('viewmodels/dialogs/favorite', id).then(function(result) {
+                        app.showDialog('viewmodels/dialogs/favorite', id).then(function (result) {
                             if (result.saved) {
                                 loadFavorites();
                             }
                         });
                     } else if (target === 'delete') {
-                        data.deleteFavorite(id).done(function(){
+                        data.deleteFavorite(id).done(function () {
                             loadFavorites();
                         });
                     }
                 }
             });
             $("#kapitelStruktur").contextmenu({
-                scopes: '.kapitel', 
+                scopes: '.kapitel',
                 target: '#kapitelContexMenu',
-                onItem: function(ctx, e) {
+                onItem: function (ctx, e) {
                     var id = $(ctx).data('id');
-                    app.showDialog('viewmodels/dialogs/kapitel', id).then(function(result){
-                        if (result.saved) { loadKapitel(); }
+                    app.showDialog('viewmodels/dialogs/kapitel', id).then(function (result) {
+                        if (result.saved) {
+                            loadKapitel();
+                        }
                     });
                 }
             });
@@ -101,22 +153,22 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
                 onItem: function (ctx, e) {
                     var id = $(ctx).data('id');
                     var action = $(e.target).data('action');
-                    switch(action) {
-                        case "edit":
-                            app.showDialog('viewmodels/dialogs/filter', id).then(function (saved) {
-                                if (saved) loadFilters();    
-                            }); 
-                            break;
-                        case "delete":
-                            data.deleteFilter(id).done(function(){
-                                loadFilters();
-                            }).fail(function(){
-                                msg.showError('Filter not deleted');
-                            });
-                            break;
+                    switch (action) {
+                    case "edit":
+                        app.showDialog('viewmodels/dialogs/filter', id).then(function (saved) {
+                            if (saved) loadFilters();
+                        });
+                        break;
+                    case "delete":
+                        data.deleteFilter(id).done(function () {
+                            loadFilters();
+                        }).fail(function () {
+                            msg.showError('Filter not deleted');
+                        });
+                        break;
                     }
                 }
-                
+
             });
             app.on('refresh:kapitel', loadKapitel);
             app.on('refresh:favorites', loadFavorites);
@@ -126,26 +178,28 @@ define(['plugins/router', 'services/data', 'services/messages', 'durandal/system
             });*/
         }
     };
-    
+
     function loadFavorites() {
-        data.getFavorites(1,1).done(function(fav) {
+        data.getFavorites(1, 1).done(function (fav) {
             favorites(fav);
-        }).fail(function() {msg.showError("Favorites loading failed");});
+        }).fail(function () {
+            msg.showError("Favorites loading failed");
+        });
     }
-                
-    function loadKapitel(){
-        data.getPhases(1).done(function(kapitel){
-        kapitelStruktur(kapitel);
-        }).fail(function(){
+
+    function loadKapitel() {
+        data.getPhases(1).done(function (kapitel) {
+            kapitelStruktur(kapitel);
+        }).fail(function () {
             msg.showError("Kapitelstruktur loading failed");
         });
     }
-                
+
     function loadFilters() {
         data.loadFilters(1, 1).done(function (f) {
             myFilter(f);
-        }).fail(function () { 
-            msg.showError('Filters loading failed') 
+        }).fail(function () {
+            msg.showError('Filters loading failed')
         });
     }
 })
