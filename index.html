@@ -67,27 +67,26 @@
 
 
     <script type="text/html" id="tasks-template">
-        < table class = "table table-bordered table-condesed" >
-            < thead >
-            < tr >
-            < th > Nr. < /th>
+        <table class="table table-bordered table-condesed" >
+            <thead>
+                <tr>
+                    <th>Nr.< /th>
                     <th>Titel</th >
          <!--                    <th>Beschreibung</th>-->
-         < th > Prioritat < /th>
+                    <th>Prioritat</th>
                     <th>Status</th >
             < /tr>
-            </thead >
-            < tbody data - bind = "foreach: tasks" >
-            < tr data - bind = "click: $root.gotoTask"
-        style = "cursor: pointer" >
-            < td data - bind = "text: ID" > < /td>
+            </thead>
+            <tbody data-bind="foreach: tasks" >
+                <tr data-bind="click: $root.gotoTask" style="cursor: pointer" >
+                    <td data-bind = "text: ID" > < /td>
                     <td data-bind="text: Title"></td >
          <!--                    <td data-bind="text: Description"></td>-->
-         < td data - bind = "text: Priority.Label" > < /td>
+                    <td data-bind = "text: Priority.Label"></td>
                     <td data-bind="text: Status.Label"></td >
-            < /tr>
-            </tbody >
-            < /table>
+                < /tr>
+            </tbody>
+        </table>
     </script>
 </body>
 
