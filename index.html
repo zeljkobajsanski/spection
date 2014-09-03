@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
 <head>
     <meta charset="utf-8" />
     <!-- use the following meta to force IE use its most up to date rendering engine -->
@@ -23,7 +24,7 @@
     <!--[if lte IE 9]>
             <link href="css/ace-ie.min.css" rel="stylesheet" />
         <![endif]-->
-    <link href="css/style.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet" />
 
     <!-- list of script files -->
     <script src="js/ace-extra.min.js"></script>
@@ -44,8 +45,14 @@
     <script src="js/knockout.validation.js"></script>
 
 </head>
+
 <body class="no-skin">
-    <div id="applicationHost"></div>
+    <div id="applicationHost">
+        <div class="splash">
+            <h1 class="message">Please wait...</h1>
+            <i class="fa fa-spinner fa-2x fa-spin active"></i>
+        </div>
+    </div>
     <script src="js/require.js" data-main="app/main"></script>
 
     <!-- list of script files -->
@@ -57,29 +64,31 @@
     <script src="js/x-editable/ace-editable.min.js"></script>
     <script src="js/bootstrap-contextmenu.js"></script>
     <script src="js/taphold.js"></script>
-    
-    
+
+
     <script type="text/html" id="tasks-template">
-        <table class="table table-bordered table-condesed">
-            <thead>
-                <tr>
-                    <th>Nr.</th>
-                    <th>Titel</th>
-<!--                    <th>Beschreibung</th>-->
-                    <th>Prioritat</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody data-bind="foreach: tasks">
-                <tr data-bind="click: $root.gotoTask" style="cursor: pointer">
-                    <td data-bind="text: ID"></td>
-                    <td data-bind="text: Title"></td>
-<!--                    <td data-bind="text: Description"></td>-->
-                    <td data-bind="text: Priority.Label"></td>
-                    <td data-bind="text: Status.Label"></td>
-                </tr>
-            </tbody>
-        </table>
+        < table class = "table table-bordered table-condesed" >
+            < thead >
+            < tr >
+            < th > Nr. < /th>
+                    <th>Titel</th >
+         <!--                    <th>Beschreibung</th>-->
+         < th > Prioritat < /th>
+                    <th>Status</th >
+            < /tr>
+            </thead >
+            < tbody data - bind = "foreach: tasks" >
+            < tr data - bind = "click: $root.gotoTask"
+        style = "cursor: pointer" >
+            < td data - bind = "text: ID" > < /td>
+                    <td data-bind="text: Title"></td >
+         <!--                    <td data-bind="text: Description"></td>-->
+         < td data - bind = "text: Priority.Label" > < /td>
+                    <td data-bind="text: Status.Label"></td >
+            < /tr>
+            </tbody >
+            < /table>
     </script>
 </body>
+
 </html>

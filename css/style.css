@@ -1,33 +1,43 @@
 html {
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
-
-  /* No support for these yet, use at own risk */
-  -o-user-select: none;
-  user-select: none;       
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+    /* No support for these yet, use at own risk */
+    -o-user-select: none;
+    user-select: none;
 }
-
 .menu-text {
     width: 100px;
     display: inline-block;
 }
-
 .ace-nav .nav-user-photo {
-    border: 0;   
+    border: 0;
 }
-
 .login-layout {
-    background-color: transparent;   
+    background-color: transparent;
 }
-
 @media screen and (min-device-width: 960px) {
     .login-layout {
         padding-top: 10%;
     }
 }
-
 .login-layout .widget-box {
     background-color: #438eb9;
 }
+.splash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+}
 
+#applicationHost .splash h1 {
+  font-variant: small-caps;
+  padding: 100px;
+  margin: 0;
+}
